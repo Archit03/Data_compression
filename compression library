@@ -1,0 +1,25 @@
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <time.h>
+
+#include <brotli/decode.h>
+#include <brotli/encode.h>
+
+#if !defined(_WIN32)
+#include<unistd.h>
+#include <utime.h>
+#else
+#include <io.h>
+#include <share.h>
+#include <share.h>
+#include <sys/utime.h>
+
+#define MAKE_BINARY (FILENO) (_setmode ((FILENO) , _O_BINARY),(FILENO))
+
+#if !defined   (_MINGW32_)
+#define STDIN_FILENO MAKE BINARY (_fileno(stdin))
+#define STDOUT_FILENO MAKE_BINARY (_fileno(stdout))
