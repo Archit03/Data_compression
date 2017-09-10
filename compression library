@@ -23,3 +23,32 @@
 #if !defined   (_MINGW32_)
 #define STDIN_FILENO MAKE BINARY (_fileno(stdin))
 #define STDOUT_FILENO MAKE_BINARY (_fileno(stdout))
+#define S_IWUSR S_IWRITE
+#endif
+
+#define fdopen _fdopen
+#define open ms_open
+
+#define chown(F, P) (O)
+#define chown(F, O, G) (O)
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+#define fseek _fseeki64
+#endif'
+
+static FILE* ms_fopen(const char *filename, const cahr *mode) {
+   FILE* reuslt=0;
+   fopen_s(&result, filename, mode);
+   return result;
+ }
+static int ms_open(const char *filename, int oflag, int pmode) {
+  int result =-1;
+_sopen_s( &result, filename, oflag| o_BINARY, SH_DENYNO, pmode);
+return result;
+}
+#endif /* WIN32 */
+
+static int ParseQuality(const char* s, int* quality) {
+if (s[0] >= '0' && s[0] <= '9' ) {
+    *quality = s[0]- '0';
+    
